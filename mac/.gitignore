@@ -1,0 +1,17 @@
+# veri ve sırlar repoya girmez
+veri/
+trendyol_api.json
+hb_api.json
+_*.json
+hata.log
+_guncelleme.log
+
+# derleme çıktıları
+build/
+dist/
+*.spec
+*.exe
+__pycache__/
+*.pyc
+
+.DS_Store

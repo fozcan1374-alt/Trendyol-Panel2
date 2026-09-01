@@ -1,0 +1,55 @@
+KURULUM DOSYASI (Setup.exe) NASIL ÜRETİLİR
+==========================================
+Bu dosya SENİN İÇİN. Karşı tarafa gönderilmez.
+
+Setup.exe'yi Mac'te üretmek mümkün değil — hem PyInstaller hem Inno Setup
+Windows'ta çalışır. Bir kere bir Windows bilgisayarda üretirsin, sonrası biter.
+
+
+NE YAPACAKSIN
+-------------
+1) Bu klasörü bir Windows bilgisayara kopyala
+2) SETUP_YAP.bat dosyasına çift tık
+3) Bekle (5-10 dk). Sırayla:
+      Python  →  gerekli bileşenler  →  PazaryeriPanel.exe  →  Inno Setup
+4) Klasörde "PazaryeriPaneli_Setup.exe" oluşur
+
+Dağıtacağın tek dosya budur. Karşı taraf çift tıklar:
+      İleri → İleri → Kur
+Başlat Menüsü ve masaüstü kısayolu oluşur, Denetim Masası'ndan kaldırılır.
+
+Python kurulumdan sonra pencere "tekrar çift tıkla" derse bir kez daha
+çift tıkla — PATH'in tazelenmesi için gerekiyor, sadece ilk seferde olur.
+
+
+BİLMEN GEREKENLER
+-----------------
+• Kurulum yeri: %LOCALAPPDATA%\Programs\Pazaryeri Paneli
+  Yönetici şifresi sormaz, Program Files yazma sorunu yaşanmaz.
+
+• Veri (Excel, API bilgileri) uygulamanın yanındaki veri\ klasöründe durur.
+  Güncelleme kurduğunda SİLİNMEZ — boş şablon "sablon\" altına konur,
+  uygulama sadece veri yoksa oradan kopyalar.
+
+• Setup.exe imzasız olduğu için Windows "Bilinmeyen yayımcı" uyarısı
+  verebilir → "Daha fazla bilgi" → "Yine de çalıştır".
+  Uyarıyı tamamen kaldırmak için kod imzalama sertifikası gerekir
+  (yıllık ~250-400 USD). Şart değil.
+
+• Sürüm yükseltmek: pazaryeri.iss içindeki #define Surum satırını değiştir,
+  SETUP_YAP.bat'ı tekrar çalıştır. AppId AYNI KALMALI — aynı kalırsa
+  Windows bunu güncelleme sayar, iki kez kurulu görünmez.
+
+
+BU KLASÖRDEKİ ROLLER
+--------------------
+  SETUP_YAP.bat    ÇALIŞTIRACAĞIN TEK DOSYA. Setup.exe üretir.
+  pazaryeri.iss    Inno Setup betiği (kurulum ayarları)
+  *.py, veri\      uygulamanın kendisi — elleme
+  OKUBENI.txt      son kullanıcı için, Setup ile birlikte kurulur
+
+Klasörde başka .bat YOKTUR. SETUP_YAP.bat bir .bat değil, bir .EXE üretir:
+PazaryeriPaneli_Setup.exe
+
+Kurulumdan sonra API bilgilerini değiştirmek için:
+Başlat Menüsü > Pazaryeri Paneli > Ayarlar

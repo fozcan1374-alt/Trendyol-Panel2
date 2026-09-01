@@ -1,0 +1,117 @@
+PAZARYERİ KÂRLILIK PANELİ — WINDOWS
+====================================
+
+NE YAPACAKSIN
+-------------
+  1) PazaryeriPaneli_Setup.exe dosyasına çift tıkla
+  2) İleri > İleri > Kur
+  3) Uygulama açılır. API bilgilerini gir, "Bağlantıyı test et", "Kaydet"
+
+Bitti. Masaüstünde ve Başlat Menüsünde kısayolu olur.
+Kaldırmak istersen: Ayarlar > Uygulamalar > Pazaryeri Paneli > Kaldır.
+
+Windows "Bilinmeyen yayımcı" uyarısı verirse:
+"Daha fazla bilgi" > "Yine de çalıştır". Uygulama imzasız olduğu için
+normal; içeriğinde bir sorun yok.
+
+
+API BİLGİLERİ
+-------------
+Panel ilk açılışta kurulum ekranı gösterir:
+
+    Satıcı numarası (Seller ID)
+    API Key
+    API Secret
+        [Bağlantıyı test et]  [Kaydet ve paneli aç]
+
+"Bağlantıyı test et" gerçekten Trendyol'a bağlanır ve
+"Bağlantı başarılı - 601 ürün görünüyor" der. Doğrulanmadan kaydet açılmaz.
+Bilgiler: Trendyol Satıcı Paneli > Hesabım > Entegrasyon Bilgileri
+
+Hepsiburada alanları aynı ekranda, istege bağlı.
+Sonradan değiştirmek için: AYARLAR.bat
+
+
+İLK KULLANIM — VERİ NEREDEN GELİR
+---------------------------------
+Excel boş başlar, doldurmana gerek yok. Sırayla kendiliğinden dolar:
+
+  Ürün listesi + fiyat + stok   API'den gelir (kurulumdan hemen sonra)
+  Komisyon oranları             API'den gelir (ürün başına, otomatik)
+  Buybox fiyatları              API'den gelir (Tarife Takibi açılınca)
+  Komisyon barem tarifesi       haftalık export'u indirmen yeterli
+  Desi                          kargo faturaları geldikçe otomatik düzelir
+                                (Ciro Raporu açıldığında hesaplanır)
+
+  Birim maliyet                 TEK ELLE GİRİLEN ŞEY.
+                                Ürünler ekranından girersin, Excel'e yazılır.
+
+Kâr hesabı maliyet olmadan çalışmaz; gerisi kendiliğinden gelir.
+
+Hedef kâr oranları boş bırakılırsa panel her kategoride
+min %4 / hedef %10 varsayar. Değiştirmek için Excel'in "Hedefler"
+sekmesine kategori adı + oranları yaz.
+
+
+EXCEL'LER
+---------
+veri\Trendyol_Karlilik.xlsx   ana çalışma kitabı. Maliyet, desi, kargo tarifesi,
+                              hedef kârlar burada. OLMADAN PANEL AÇILMAZ.
+
+Haftalık tarife export'ları için hiçbir şey yapmana gerek yok:
+Trendyol panelinden indir (Downloads'a insin), sonra paneli aç —
+dosyaları kendisi tanıyıp veri\Tarifeler\<yıl>-H<hafta>\ altına yerleştirir.
+
+Tanıdığı export'lar (sekme adından anlar, dosya adı önemli değil):
+    KomisyonTarifeleriÜrünleri  komisyon barem tarifesi
+    YıldızlıÜrünEtiketleri      avantajlı/yıldızlı ürün eşikleri
+    TeklifÜrünleri              flaş ürün teklifleri
+    TyPlusÜrünleri              TY Plus
+
+Komisyon tarifesini Excel'e işlemek ve canlı fiyat/stok çekmek için
+panelin sağ üstündeki "Güncelle" düğmesi.
+
+
+PANELDE NE VAR
+--------------
+  Tarife Takibi        stoktaki ürünler, barem haritası, kâr basamakları,
+                       fiyat simülatörü, buybox otomatik çekilir
+  Ciro Raporu          ürün bazlı net kâr (rakamlar gizli açılır, göz düğmesi)
+  Ürünler              tüm ürünler, maliyet/desi/komisyon girişi
+  Fırsat Programları   flaş + yıldız tekliflerinin kalem kalem kâr dökümü
+
+
+KLASÖRDE NE VAR
+---------------
+  Pazaryeri Paneli.bat   ← tek ihtiyacın olan
+  AYARLAR.bat            API bilgilerini değiştirmek istersen
+  EXE_YAP.bat            istege bağlı: Python'suz tek dosya .exe üretir
+  veri\                  ← EXCEL'LER BURAYA
+  ayar.py, baslat.py, *.py, *.json   dokunma
+
+
+SORUN GİDERME
+-------------
+Python otomatik kurulamadı    python.org/downloads adresinden kur,
+                              "Add Python to PATH" kutusunu işaretle.
+
+Panel açılıyor ama beyaz      Edge WebView2 Runtime eksik.
+                              Microsoft'un sitesinden kur.
+
+"Ana Excel dosyası yok"       Trendyol_Karlilik.xlsx'i veri klasörüne koy.
+
+"Yetki reddedildi 401/403"    API Key / Secret yanlış.
+"Satıcı numarası bulunamadı"  Seller ID yanlış.
+
+Liste boş görünüyor           Excel'de stok bilgisi yok.
+                              Panelde "Güncelle" düğmesine bas.
+
+
+ÖNEMLİ
+------
+Bu paket Mac'teki kurulumdan BAĞIMSIZDIR, kendi Excel'iyle çalışır.
+Aynı Excel'i iki bilgisayarda AYNI ANDA kullanma - panel kaydederken dosyanın
+tamamını yeniden yazar, biri diğerinin üzerine yazar.
+
+trendyol_api.json canlı API anahtarını içerir. Klasörü başkasına verirsen
+o dosyayı önce boşalt.

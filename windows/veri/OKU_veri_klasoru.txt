@@ -1,0 +1,25 @@
+BU KLASORE NE KONUR
+===================
+
+  Trendyol_Karlilik.xlsx   <- ana calisma kitabi. Maliyet, desi, buybox,
+                              komisyon tarifesi, hedef karlar hepsi burada.
+                              Panel bunu okur ve buraya yazar.
+
+  Tarifeler\               <- haftalik Trendyol export'lari
+      2026-H35\
+          komisyon_....xlsx
+          yildiz_....xlsx
+          flas_....xlsx
+          typlus_....xlsx
+
+  _kargo_desi_gozlem.json  <- otomatik olusur, elleme
+  _hb_siparisler.json      <- otomatik olusur, elleme
+
+
+DIKKAT
+------
+Buradaki Excel, Mac'teki kurulumun Excel'inden AYRI bir kopyadir.
+Ikisi birbirinden habersiz calisir ve zamanla birbirinden uzaklasir.
+
+Hangi bilgisayarda calisiyorsan guncel dosya orasidir. Digerine kopyalarken
+ustune yazacagini unutma - ters yonde kopyalarsan o taraftaki calisman gider.
